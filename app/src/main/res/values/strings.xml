@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Test2</string>
+    <string-array name="tab_choix">
+        <item>Francais</item>
+        <item>Anglais</item>
+    </string-array>
+</resources>
