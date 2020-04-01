@@ -14,7 +14,7 @@
         android:layout_marginTop="112dp"
         android:layout_marginEnd="176dp"
         android:layout_marginBottom="600dp"
-        android:text="Bienvenue sur quizzin"
+        android:text="Bienvenue sur Quizz'in"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,35 +33,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/debut"
-        android:layout_width="226dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginBottom="82dp"
+        android:layout_width="296dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="72dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/record"
-        android:layout_width="222dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="31dp"
+        android:layout_width="233dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="2dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bienvenue" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/choix"
-        android:layout_width="409dp"
+        android:layout_width="377dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="86dp"
         app:layout_constraintBottom_toTopOf="@+id/valider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -69,15 +72,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="126dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="126dp"
         android:text="Choisissez le thème :"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/record"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="DuplicateIds" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="138dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/txchoix"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bienvenue"
+        app:srcCompat="@mipmap/logo_quizzin_foreground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

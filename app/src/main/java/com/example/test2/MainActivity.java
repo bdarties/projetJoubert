@@ -3,6 +3,7 @@ package com.example.test2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,15 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     Button valider;
-    EditText debut;
+    TextView debut;
     Spinner choix;
-    EditText record;
-    public int best = 0;
+    TextView record;
+    int nbrecord = 0;
     String text;
 
     @Override
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         debut = findViewById(R.id.debut); // variable qui affiche la partie va commencer
         record = findViewById(R.id.record);
-        setRecord(best); // affiche le record actuel
+        setRecord(); // affiche le record actuel
         choix = (Spinner) findViewById(R.id.choix); // pour choisir la langue
         ArrayAdapter<CharSequence> monAdapter = ArrayAdapter.createFromResource(this, R.array.tab_choix, android.R.layout.simple_spinner_item);
         monAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -41,10 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // on met ici ce qu’il faut faire lorsqu’aucun item n’est selectionne
-                System.out.println("aucun item n’est selectionné");
             }
-
         });
 
         valider = (Button) findViewById(R.id.valider); // bouton pour lancer la partie
@@ -56,25 +55,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void visualiser_la_suite() {
         String test=text;
-        if (test == "Francais") {
+        if (test.equals("Francais")){
             Intent intent = new Intent(this, francais.class);
             startActivity(intent);
+
             System.out.println(text);
 
         }
-        if (test == "Anglais") {
+        if (test.equals("Anglais")) {
             Intent intent = new Intent(this, anglais.class);
             startActivity(intent);
-        } if(text != "Francais" && text != "Anglais") debut.setText("Selectionnez un item avant de commencer");
-    }
+        }    }
 
-    public void setRecord(int best) {
-        record.setText("Votre record actuel est : " + best);
+    public void setRecord() {
+        SharedPreferences sp = getSharedPreferences("your_prefs", anglais.MODE_PRIVATE);
+        nbrecord = sp.getInt("nbrecord", -1);
+        record.setText("Votre record actuel est : " + nbrecord);
     }
 
 }

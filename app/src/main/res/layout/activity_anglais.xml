@@ -4,15 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".jeu">
+    tools:context=".anglais">
 
     <TextView
-        android:id="@+id/Nomjeu"
+        android:id="@+id/titreAng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginBottom="422dp"
-        android:text="QuizzIN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="128dp"
+        android:text="Bienvenue sur le jeu pour apprendre l'anglais tout en s'amusant"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="56dp"
+        android:text="2:00"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/commencer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="85dp"
+        android:text="Commencer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreAng" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="177dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:text="Question"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reponse1"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="48dp"
+        android:text="reponse1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commencer" />
+
+    <Button
+        android:id="@+id/reponse2"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginEnd="48dp"
+        android:text="reponse2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/reponse1"
+        app:layout_constraintTop_toBottomOf="@+id/commencer" />
+
+    <Button
+        android:id="@+id/reponse3"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="33dp"
+        android:text="reponse3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reponse1" />
+
+    <Button
+        android:id="@+id/reponse4"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="48dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/reponse3"
+        app:layout_constraintTop_toBottomOf="@+id/reponse2" />
+
+    <TextView
+        android:id="@+id/record"
+        android:layout_width="230dp"
+        android:layout_height="35dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="-1dp" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="177dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="2dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
