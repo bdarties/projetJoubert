@@ -8,7 +8,8 @@
         android:label="Quizzin"
         android:roundIcon="@mipmap/logo_quizzin"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:background="#A3E6F5">
         <activity android:name=".anglais"></activity>
         <activity android:name=".francais" />
         <activity android:name=".MainActivity">
