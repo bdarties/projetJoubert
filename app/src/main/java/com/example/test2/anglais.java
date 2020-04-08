@@ -3,6 +3,7 @@ package com.example.test2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -25,7 +26,7 @@ public class anglais extends AppCompatActivity {
     Button reponse1,reponse2,reponse3,reponse4;
     int nbrecord =0;
     int nbscore=0;
-    int nbaleatoire=0; // à changer pour la taille de la bdd
+    int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
 
 
@@ -100,13 +101,45 @@ void afficherQuestion (){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
+    question.setVisibility(View.VISIBLE);
+    reponse1.setVisibility(View.VISIBLE);
+    reponse2.setVisibility(View.VISIBLE);
+    reponse3.setVisibility(View.VISIBLE);
+    reponse4.setVisibility(View.VISIBLE);
     for (int i=0;i<10;i++) {
-        question.setVisibility(View.VISIBLE);
         question.setText(getPif()); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setVisibility(View.VISIBLE);
-        reponse2.setVisibility(View.VISIBLE);
-        reponse3.setVisibility(View.VISIBLE);
-        reponse4.setVisibility(View.VISIBLE);
+        /*reponse1.setText(); // mettre une reponse en aléatoire du tableau
+        reponse2.setText();
+        reponse3.setText();
+        reponse4.setText();*/
+        reponse1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (reponse1.toString() == ""){ // mettre l'id de la reponse juste
+                    reponse1.setBackgroundResource(R.color.vert);
+                    CountDownTimer time = new CountDownTimer(3000,1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                        }
+                        @Override
+                        public void onFinish() {
+                            reponse1.setBackgroundResource(R.color.bleu);
+                        }
+                    };
+
+                }
+                else {reponse1.setBackgroundResource(R.color.rouge);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse1.setBackgroundResource(R.color.bleu);
+                    }
+                };}
+            }});
+
+
     }
 }
 public void setRecord() {
@@ -123,14 +156,14 @@ public void setRecord() {
 // partie tirage nb aléatoire sans repetition
 private void setTableau()
 {   // On rempli le tableau "nombres" de 1 à nb
-    for(int i=0;i<nbaleatoire;i++) {nombres.add(i);}
+    for(int i=1;i<=nbaleatoire;i++) {nombres.add(i);}
 }
 public Integer getPif()
 {
-    if(nombres.size()==0) {setTableau();} // (3)
-    int i=pif(0,nombres.size()-1); // (1)
+    if(nombres.size()==0) {setTableau();} // si le tableau de nombre est vide on le réinitialise
+    int i=pif(1,nombres.size());
     int retour=nombres.get(i);
-    nombres.remove(i); // (2)
+    nombres.remove(i);
     return retour;
 }
 // Tirage au sort
