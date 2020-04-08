@@ -28,7 +28,7 @@ public class anglais extends AppCompatActivity {
     int nbscore=0;
     int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
-
+// c'est la modif
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
