@@ -28,7 +28,7 @@ public class anglais extends AppCompatActivity {
     int nbscore=0;
     int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
-// c'est la modif
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +77,8 @@ void startTimer(){ // démarre le compte a rebourd
             tempsrestant=millisUntilFinished;
             updateTimer();
         }
-
         @Override
         public void onFinish() {
-
         }
     }.start();
     commencer.setText("PAUSE");
@@ -106,15 +104,16 @@ void afficherQuestion (){
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
-    for (int i=0;i<10;i++) {
-        question.setText(getPif()); // est censé choisir aléatoirement une question puis à faire les questions
+    //for (int i=0;i<10;i++) {
+        int numq=getPif();
+       // question.setText(getPif()); // est censé choisir aléatoirement une question puis à faire les questions
         /*reponse1.setText(); // mettre une reponse en aléatoire du tableau
         reponse2.setText();
         reponse3.setText();
         reponse4.setText();*/
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (reponse1.toString() == ""){ // mettre l'id de la reponse juste
+                if (reponse1.toString().equals("") ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
                     CountDownTimer time = new CountDownTimer(3000,1000) {
                         @Override
@@ -125,7 +124,7 @@ void afficherQuestion (){
                             reponse1.setBackgroundResource(R.color.bleu);
                         }
                     };
-
+                time.start();
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -136,11 +135,96 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse1.setBackgroundResource(R.color.bleu);
                     }
-                };}
+                };
+                time.start();
+                }
             }});
+    reponse2.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            if (reponse2.toString().equals("") ){ // mettre l'id de la reponse juste
+                reponse2.setBackgroundResource(R.color.vert);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse2.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+            else {reponse2.setBackgroundResource(R.color.rouge);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse2.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+        }});
+    reponse3.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            if (reponse3.toString().equals("") ){ // mettre l'id de la reponse juste
+                reponse3.setBackgroundResource(R.color.vert);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse3.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+            else {reponse3.setBackgroundResource(R.color.rouge);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse3.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+        }});
+    reponse4.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            if (reponse4.toString().equals("") ){ // mettre l'id de la reponse juste
+                reponse4.setBackgroundResource(R.color.vert);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse4.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+            else {reponse4.setBackgroundResource(R.color.rouge);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        reponse4.setBackgroundResource(R.color.bleu);
+                    }
+                };
+                time.start();
+            }
+        }});
 
-
-    }
+    //}
 }
 public void setRecord() {
         // vérifie si le record est battu et le change si oui
