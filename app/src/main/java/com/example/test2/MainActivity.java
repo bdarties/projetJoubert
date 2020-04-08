@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                // rien n'est fait ici
             }
         });
 
