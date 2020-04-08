@@ -3,9 +3,13 @@ package com.example.test2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ public class anglais extends AppCompatActivity {
     int nbscore=0;
     int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
+    SQLiteDatabase maBaseang;
 
 
     @Override
@@ -51,6 +56,44 @@ public class anglais extends AppCompatActivity {
         reponse4.setVisibility(View.INVISIBLE);
         question.setVisibility(View.INVISIBLE);
         setRecord();
+
+        try {
+            maBaseang = openOrCreateDatabase("maBaseDeDonneesPokemon",MODE_PRIVATE,null);
+            // on cree la table pokemon si elle n'existait pas
+            maBaseang.execSQL("CREATE TABLE IF NOT EXISTS question(" +
+                    " question text NOT NULL," +
+                    " reponse1 text NOT NULL," +
+                    " reponse2 text,"+
+                    " reponse3 text ,"+
+                    " reponse4 text);"
+            );
+            // on la vide (sinon on recréerait a chaque fois les pokemon a chaque nouveau lancement)
+            maBaseang.execSQL(" delete from question where 1;");
+            // on la remplit de quelques elements  la table pokemon
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (25, 'Pikachu', 'Eletrik');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (26, 'Raichu', 'Eletrik');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (95, 'Onix', 'Roche/sol');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (143, 'Ronflex', 'Normal');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (147, 'Minidraco', 'Dragon');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (148, 'Draco', 'Dragon');");
+            maBaseang.execSQL("insert into pokemon (id, nom, type) values (149, 'Dracolosse', 'Dragon');");
+        } catch (SQLException e) {
+            Log.e("execSQL","Erreur SQL : " +e.getMessage());
+        }
+        // on crée un tableau de string appelé results qui va contenir les pokemons de la base que l'on veut dans le spinner
+        // par exemple on ne va afficher que les pokemon Dragon
+        final ArrayList<Question> results = new ArrayList<>();
+        try {
+            // on execute la requete SQL et on récupère les résultats dans un Cursor c
+            Cursor c = maBaseang.rawQuery("Select nom from pokemon WHERE type='Dragon' order by id asc;", null);
+            // on ajoute chaque ligne du cursor dans le tableau results
+            while (c.moveToNext()) {
+                String a = c.getString(c.getColumnIndex("nom"));
+                String b = c.getString(c.getColumnIndex(""));
+                Question q = new Question(a,b);
+            }
+
+
         commencer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +102,9 @@ public class anglais extends AppCompatActivity {
             }
         });
 
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 void reponse (){
         countdown.cancel();
