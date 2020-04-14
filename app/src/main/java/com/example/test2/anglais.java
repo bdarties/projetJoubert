@@ -25,12 +25,12 @@ public class anglais extends AppCompatActivity {
     TextView record;
     TextView score;
     CountDownTimer countdown;
-    long tempsrestant = 120000; // 2 min
+    long tempsrestant = 10000; // 10 secondes
     TextView question;
     Button reponse1,reponse2,reponse3,reponse4;
     int nbrecord =0;
     int nbscore=0;
-    int nbaleatoire=5; // à changer pour la taille de la bdd
+    int nbaleatoire=0; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
 
@@ -58,7 +58,7 @@ public class anglais extends AppCompatActivity {
         setRecord();
 
         try {
-            maBaseang = openOrCreateDatabase("maBaseDeDonneesPokemon",MODE_PRIVATE,null);
+            maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion",MODE_PRIVATE,null);
             // on cree la table pokemon si elle n'existait pas
             maBaseang.execSQL("CREATE TABLE IF NOT EXISTS question(" +
                     " question text NOT NULL," +
@@ -70,41 +70,41 @@ public class anglais extends AppCompatActivity {
             // on la vide (sinon on recréerait a chaque fois les pokemon a chaque nouveau lancement)
             maBaseang.execSQL(" delete from question where 1;");
             // on la remplit de quelques elements  la table pokemon
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (25, 'Pikachu', 'Eletrik');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (26, 'Raichu', 'Eletrik');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (95, 'Onix', 'Roche/sol');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (143, 'Ronflex', 'Normal');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (147, 'Minidraco', 'Dragon');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (148, 'Draco', 'Dragon');");
-            maBaseang.execSQL("insert into pokemon (id, nom, type) values (149, 'Dracolosse', 'Dragon');");
+            maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+
         } catch (SQLException e) {
             Log.e("execSQL","Erreur SQL : " +e.getMessage());
         }
         // on crée un tableau de string appelé results qui va contenir les pokemons de la base que l'on veut dans le spinner
-        // par exemple on ne va afficher que les pokemon Dragon
         final ArrayList<Question> results = new ArrayList<>();
         try {
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
-            Cursor c = maBaseang.rawQuery("Select nom from pokemon WHERE type='Dragon' order by id asc;", null);
+            Cursor c = maBaseang.rawQuery("Select question,reponse1,reponse2, reponse3,reponse4 from question order by id asc;", null);
             // on ajoute chaque ligne du cursor dans le tableau results
             while (c.moveToNext()) {
-                String a = c.getString(c.getColumnIndex("nom"));
-                String b = c.getString(c.getColumnIndex(""));
-                Question q = new Question(a,b);
+                String a = c.getString(c.getColumnIndex("question"));
+                String b = c.getString(c.getColumnIndex("reponse1"));
+                String d = c.getString(c.getColumnIndex("reponse2"));
+                String e = c.getString(c.getColumnIndex("reponse3"));
+                String f = c.getString(c.getColumnIndex("reponse4"));
+                nbaleatoire++;
+                Question q = new Question(a,b,d,e,f);
+                results.add(q);
             }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         commencer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startTimer();
-                afficherQuestion();
+                //afficherQuestion();
             }
         });
 
-    } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 void reponse (){
         countdown.cancel();
@@ -112,12 +112,12 @@ void reponse (){
         setRecord();
 }
 void setScore (){ // détermine le score en temps réel
-        nbscore += (int) (10-tempsrestant);
+        nbscore += (int) (tempsrestant);
         score.setText("Score actuel : "+ nbscore);
     }
     // partie compte à rebourd
 void startTimer(){ // démarre le compte a rebourd
-    countdown = new CountDownTimer(tempsrestant, 1000) {
+    countdown = new CountDownTimer(tempsrestant, 10) {
         @Override
         public void onTick(long millisUntilFinished) {
             tempsrestant=millisUntilFinished;
@@ -125,20 +125,21 @@ void startTimer(){ // démarre le compte a rebourd
         }
         @Override
         public void onFinish() {
+            tempsrestant=0;
+            updateTimer();
+            reponse();
         }
     }.start();
-    commencer.setText("PAUSE");
+
 }
 
 void updateTimer()
 {       // mise à jour du timer
-    int minutes = (int) tempsrestant/60000;
-    int secondes = (int) tempsrestant % 60000/1000;
+    int secondes = (int) tempsrestant /1000;
+    int milisec = (int) tempsrestant %1000;
     String tempsRestant;
-    tempsRestant = "" + minutes;
-    tempsRestant += ":";
-    if (secondes < 10) tempsRestant += "0";
-    tempsRestant += secondes;
+    tempsRestant =""+secondes;
+    tempsRestant+=":"+milisec;
     timer.setText(tempsRestant);
 }
 void afficherQuestion (){
@@ -152,13 +153,14 @@ void afficherQuestion (){
     reponse4.setVisibility(View.VISIBLE);
     //for (int i=0;i<10;i++) {
         int numq=getPif();
-       // question.setText(getPif()); // est censé choisir aléatoirement une question puis à faire les questions
+       // question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
         /*reponse1.setText(); // mettre une reponse en aléatoire du tableau
         reponse2.setText();
         reponse3.setText();
         reponse4.setText();*/
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                reponse();
                 if (reponse1.toString().equals("") ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
                     CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -169,10 +171,12 @@ void afficherQuestion (){
                         public void onFinish() {
                             reponse1.setBackgroundResource(R.color.bleu);
                         }
-                    };
-                time.start();
+                    }.start();
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
+                    if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
+                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
+                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -181,12 +185,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse1.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
                 }
             }});
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
+            reponse();
             if (reponse2.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse2.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -197,10 +201,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse2.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
             else {reponse2.setBackgroundResource(R.color.rouge);
+                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
+                if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
+                if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -209,12 +215,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse2.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
         }});
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
+            reponse();
             if (reponse3.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -225,10 +231,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse3.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
             else {reponse3.setBackgroundResource(R.color.rouge);
+                if (reponse2.toString().equals("reponse2")) reponse2.setBackgroundResource(R.color.vert);
+                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
+                if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -237,12 +245,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse3.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
         }});
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
+            reponse();
             if (reponse4.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -253,10 +261,12 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse4.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
             else {reponse4.setBackgroundResource(R.color.rouge);
+                if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
+                if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
+                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -265,8 +275,7 @@ void afficherQuestion (){
                     public void onFinish() {
                         reponse4.setBackgroundResource(R.color.bleu);
                     }
-                };
-                time.start();
+                }.start();
             }
         }});
 
