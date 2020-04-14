@@ -100,7 +100,7 @@ public class anglais extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTimer();
-                //afficherQuestion();
+                afficherQuestion();
             }
         });
 
