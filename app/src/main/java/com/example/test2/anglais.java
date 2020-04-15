@@ -56,7 +56,7 @@ public class anglais extends AppCompatActivity {
 
         try {
             maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion",MODE_PRIVATE,null);
-            // on cree la table pokemon si elle n'existait pas
+            // on cree la table question si elle n'existait pas
             maBaseang.execSQL("CREATE TABLE IF NOT EXISTS question(" +
                     " question text NOT NULL," +
                     " reponse1 text NOT NULL," +
@@ -64,16 +64,16 @@ public class anglais extends AppCompatActivity {
                     " reponse3 text ,"+
                     " reponse4 text);"
             );
-            // on la vide (sinon on recréerait a chaque fois les pokemon a chaque nouveau lancement)
+            // on la vide (sinon on recréerait a chaque fois les questions a chaque nouveau lancement)
             maBaseang.execSQL(" delete from question where 1;");
-            // on la remplit de quelques elements  la table pokemon
+            // on la remplit de quelques elements  la table question
             maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
             maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
 
         } catch (SQLException e) {
             Log.e("execSQL","Erreur SQL : " +e.getMessage());
         }
-        // on crée un tableau de string appelé results qui va contenir les pokemons de la base que l'on veut dans le spinner
+        // on crée un tableau de string appelé results qui va contenir les questions de la base
         final ArrayList<Question> results = new ArrayList<>();
         try {
             // on execute la requete SQL et on récupère les résultats dans un Cursor c

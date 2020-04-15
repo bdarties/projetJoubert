@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".francais">
+    tools:context=".francais"
+    android:background="@drawable/fond_degrade_bleu">
 
     <TextView
         android:id="@+id/titrefr"
