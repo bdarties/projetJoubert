@@ -95,7 +95,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txchoix"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bienvenue"
-        app:srcCompat="@mipmap/logo_quizzin_foreground" />
+        app:srcCompat="@drawable/logo_detoure" />
 
 
 
