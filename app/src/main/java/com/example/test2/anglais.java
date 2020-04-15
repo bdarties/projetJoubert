@@ -6,14 +6,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,10 +28,9 @@ public class anglais extends AppCompatActivity {
     Button reponse1,reponse2,reponse3,reponse4;
     int nbrecord =0;
     int nbscore=0;
-    int nbaleatoire=0; // à changer pour la taille de la bdd
+    int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +77,7 @@ public class anglais extends AppCompatActivity {
         final ArrayList<Question> results = new ArrayList<>();
         try {
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
-            Cursor c = maBaseang.rawQuery("Select question,reponse1,reponse2, reponse3,reponse4 from question order by id asc;", null);
+            Cursor c = maBaseang.rawQuery("Select question from question order by id asc;", null);
             // on ajoute chaque ligne du cursor dans le tableau results
             while (c.moveToNext()) {
                 String a = c.getString(c.getColumnIndex("question"));
@@ -88,7 +85,6 @@ public class anglais extends AppCompatActivity {
                 String d = c.getString(c.getColumnIndex("reponse2"));
                 String e = c.getString(c.getColumnIndex("reponse3"));
                 String f = c.getString(c.getColumnIndex("reponse4"));
-                nbaleatoire++;
                 Question q = new Question(a,b,d,e,f);
                 results.add(q);
             }
@@ -108,16 +104,15 @@ public class anglais extends AppCompatActivity {
     }
 void reponse (){
         countdown.cancel();
-        setScore();
         setRecord();
 }
 void setScore (){ // détermine le score en temps réel
-        nbscore += (int) (tempsrestant);
+        nbscore += (int) (tempsrestant/10); // cacul du score en centième de secondes
         score.setText("Score actuel : "+ nbscore);
     }
     // partie compte à rebourd
 void startTimer(){ // démarre le compte a rebourd
-    countdown = new CountDownTimer(tempsrestant, 10) {
+    countdown = new CountDownTimer(tempsrestant, 10) { // on compte en millièmes de secondes
         @Override
         public void onTick(long millisUntilFinished) {
             tempsrestant=millisUntilFinished;
@@ -128,6 +123,7 @@ void startTimer(){ // démarre le compte a rebourd
             tempsrestant=0;
             updateTimer();
             reponse();
+            tempsrestant=10000;
         }
     }.start();
 
@@ -151,7 +147,7 @@ void afficherQuestion (){
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
-    //for (int i=0;i<10;i++) {
+    //for (int i=0;i<10) {
         int numq=getPif();
        // question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
         /*reponse1.setText(); // mettre une reponse en aléatoire du tableau
@@ -163,6 +159,7 @@ void afficherQuestion (){
                 reponse();
                 if (reponse1.toString().equals("") ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
+                    setScore();
                     CountDownTimer time = new CountDownTimer(3000,1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -187,12 +184,15 @@ void afficherQuestion (){
                     }
                 }.start();
                 }
+                tempsrestant=10000;
+                //i++;
             }});
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
             if (reponse2.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse2.setBackgroundResource(R.color.vert);
+                setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -217,12 +217,15 @@ void afficherQuestion (){
                     }
                 }.start();
             }
+            tempsrestant=10000;
+            //i++;
         }});
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
             if (reponse3.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
+                setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -247,12 +250,15 @@ void afficherQuestion (){
                     }
                 }.start();
             }
+            tempsrestant=10000;
+            //i++;
         }});
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
             if (reponse4.toString().equals("") ){ // mettre l'id de la reponse juste
                 reponse4.setBackgroundResource(R.color.vert);
+                setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -277,6 +283,8 @@ void afficherQuestion (){
                     }
                 }.start();
             }
+            tempsrestant=10000;
+            //i++;
         }});
 
     //}
@@ -313,7 +321,5 @@ public static int pif(int min,int max)
     Random rand=new Random();
     return rand.nextInt((max - min) + 1) + min;
 }
-
-
 
 }
