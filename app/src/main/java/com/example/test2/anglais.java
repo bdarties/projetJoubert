@@ -90,7 +90,6 @@ public class anglais extends AppCompatActivity {
                 String f = c.getString(c.getColumnIndex("reponse4"));
                 Question q = new Question(a,b,d,e,f);
                 results.add(q);
-
                 Log.i("Cursor","Opération réussi");
             }
         } catch (Exception e) {
@@ -156,11 +155,11 @@ void afficherQuestion (){
     for (final int[] i = {0}; i[0] <10;) {
         int numq=getPif();
 
-        question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setText(); // mettre une reponse en aléatoire du tableau
-        reponse2.setText();
-        reponse3.setText();
-        reponse4.setText();
+        question.setText(""); // est censé choisir aléatoirement une question puis à faire les questions
+        reponse1.setText(""); // mettre une reponse en aléatoire du tableau
+        reponse2.setText("");
+        reponse3.setText("");
+        reponse4.setText("");
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
