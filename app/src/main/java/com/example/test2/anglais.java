@@ -189,6 +189,9 @@ void afficherQuestion (){
                     @Override
                     public void onFinish() {
                         reponse1.setBackgroundResource(R.color.bleu);
+                        reponse2.setBackgroundResource(R.color.bleu);
+                        reponse3.setBackgroundResource(R.color.bleu);
+                        reponse4.setBackgroundResource(R.color.bleu);
                     }
                 }.start();
                 }
@@ -221,7 +224,10 @@ void afficherQuestion (){
                     }
                     @Override
                     public void onFinish() {
+                        reponse1.setBackgroundResource(R.color.bleu);
                         reponse2.setBackgroundResource(R.color.bleu);
+                        reponse3.setBackgroundResource(R.color.bleu);
+                        reponse4.setBackgroundResource(R.color.bleu);
                     }
                 }.start();
             }
@@ -254,7 +260,10 @@ void afficherQuestion (){
                     }
                     @Override
                     public void onFinish() {
+                        reponse1.setBackgroundResource(R.color.bleu);
+                        reponse2.setBackgroundResource(R.color.bleu);
                         reponse3.setBackgroundResource(R.color.bleu);
+                        reponse4.setBackgroundResource(R.color.bleu);
                     }
                 }.start();
             }
@@ -287,6 +296,9 @@ void afficherQuestion (){
                     }
                     @Override
                     public void onFinish() {
+                        reponse1.setBackgroundResource(R.color.bleu);
+                        reponse2.setBackgroundResource(R.color.bleu);
+                        reponse3.setBackgroundResource(R.color.bleu);
                         reponse4.setBackgroundResource(R.color.bleu);
                     }
                 }.start();
