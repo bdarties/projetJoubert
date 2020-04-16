@@ -153,7 +153,7 @@ void afficherQuestion (){
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
-    for (int i=0;i<10;i++) {
+    for (final int[] i = {0}; i[0] <10;) {
         int numq=getPif();
 
         question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
@@ -193,7 +193,7 @@ void afficherQuestion (){
                 }.start();
                 }
                 tempsrestant=10000;
-                //i++;
+                i[0]++;
             }});
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -226,7 +226,7 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
+            i[0]++;
         }});
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -259,7 +259,7 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
+            i[0]++;
         }});
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -292,7 +292,7 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
+            i[0]++;
         }});
 
     }
