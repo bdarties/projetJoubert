@@ -57,7 +57,8 @@ public class anglais extends AppCompatActivity {
         try {
             maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion",MODE_PRIVATE,null);
             // on cree la table question si elle n'existait pas
-            maBaseang.execSQL("CREATE TABLE IF NOT EXISTS question(" +
+            maBaseang.execSQL("CREATE TABLE IF NOT EXISTS questionA(" +
+                    " id INTEGER PRIMARY KEY," +
                     " question text NOT NULL," +
                     " reponse1 text NOT NULL," +
                     " reponse2 text,"+
@@ -65,10 +66,12 @@ public class anglais extends AppCompatActivity {
                     " reponse4 text);"
             );
             // on la vide (sinon on recréerait a chaque fois les questions a chaque nouveau lancement)
-            maBaseang.execSQL(" delete from question where 1;");
+            maBaseang.execSQL(" delete from questionA where 1;");
             // on la remplit de quelques elements  la table question
-            maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into pokemon (question, reponse1, reponse2, reponse3, reponse4) values ('What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+
+            Log.i("BDD","Opération réussi");
 
         } catch (SQLException e) {
             Log.e("execSQL","Erreur SQL : " +e.getMessage());
@@ -77,7 +80,7 @@ public class anglais extends AppCompatActivity {
         final ArrayList<Question> results = new ArrayList<>();
         try {
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
-            Cursor c = maBaseang.rawQuery("Select question from question order by id asc;", null);
+            Cursor c = maBaseang.rawQuery("Select question from questionA order by id asc;", null);
             // on ajoute chaque ligne du cursor dans le tableau results
             while (c.moveToNext()) {
                 String a = c.getString(c.getColumnIndex("question"));
@@ -87,6 +90,8 @@ public class anglais extends AppCompatActivity {
                 String f = c.getString(c.getColumnIndex("reponse4"));
                 Question q = new Question(a,b,d,e,f);
                 results.add(q);
+
+                Log.i("Cursor","Opération réussi");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,18 +147,21 @@ void afficherQuestion (){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
+                                               //mettre id pour récup la question
     question.setVisibility(View.VISIBLE);
     reponse1.setVisibility(View.VISIBLE);
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
-    //for (int i=0;i<10) {
+    for (int i=0;i<10;i++) {
         int numq=getPif();
-       // question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
-        /*reponse1.setText(); // mettre une reponse en aléatoire du tableau
+
+        question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
+        reponse1.setText(); // mettre une reponse en aléatoire du tableau
         reponse2.setText();
         reponse3.setText();
-        reponse4.setText();*/
+        reponse4.setText();
+
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 reponse();
@@ -287,7 +295,7 @@ void afficherQuestion (){
             //i++;
         }});
 
-    //}
+    }
 }
 public void setRecord() {
         // vérifie si le record est battu et le change si oui

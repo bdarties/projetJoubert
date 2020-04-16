@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +18,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    SQLiteDatabase BDD;
     Button valider;
     TextView debut;
     Spinner choix;
@@ -56,7 +59,35 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+        /*
+        try {
+
+             BDD = openOrCreateDatabase("BasedeDonneAngalais",MODE_PRIVATE, null);
+
+                BDD.execSQL("CREATE TABLE IF NOT EXISTS QuestionA ("
+                        + "id INTEGER PRIMARY KEY, "
+                        + " questA text NOT NULL, "
+                        + " rép1 text NOT NULL,"
+                        + " rép2 text NOT NULL, "
+                        + " rép3 text NOT NULL, "
+                        + " rép4 text NOT NULL );"
+
+                );
+                // on suprimme les données déjà crées
+                BDD.execSQL("delete from questionA where 1;");
+                BDD.execSQL("insert into QuestionA (id,questA,rép1,rép2,rép3,rép4) values (1,'Where is Bryan ?','in the kitchen','in the sofa','in the librairy','in hopital');");
+                BDD.execSQL("insert into QuestionA (id,questA,rép1,rép2,rép3,rép4) values (2,'Where is Bryan ?','in the kitchen','in the sofa','in the librairy','in hopital');");
+
+            Log.i("BDD","opération réussi");
+        }
+
+          catch (SQLException e) {
+            Log.e("BDD", "erreur création : ");
+
+        }*/
+      }
+
+
 
     private void visualiser_la_suite() {
         String test=text;
