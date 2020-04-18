@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        /*
+
         try {
 
              BDD = openOrCreateDatabase("BasedeDonneAngalais",MODE_PRIVATE, null);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
           catch (SQLException e) {
             Log.e("BDD", "erreur création : ");
 
-        }*/
+        }
       }
 
 

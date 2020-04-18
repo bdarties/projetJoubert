@@ -68,8 +68,8 @@ public class anglais extends AppCompatActivity {
             // on la vide (sinon on recréerait a chaque fois les questions a chaque nouveau lancement)
             maBaseang.execSQL(" delete from questionA where 1;");
             // on la remplit de quelques elements  la table question
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (25,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (26,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
 
             Log.i("BDD","Opération réussi");
 
@@ -78,7 +78,7 @@ public class anglais extends AppCompatActivity {
         }
         // on crée un tableau de string appelé results qui va contenir les questions de la base
         final ArrayList<Question> results = new ArrayList<>();
-        try {
+        try { String tampon = "bonne réponse";
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
             Cursor c = maBaseang.rawQuery("Select question from questionA order by id asc;", null);
             // on ajoute chaque ligne du cursor dans le tableau results
@@ -91,9 +91,17 @@ public class anglais extends AppCompatActivity {
                 Question q = new Question(a,b,d,e,f);
                 results.add(q);
 
+tampon = b;
+
+
+
                 Log.i("Cursor","Opération réussi");
             }
-        } catch (Exception e) {
+           /* public int Gettampon1(b) {
+
+            return tampon1; }*/
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,7 +114,18 @@ public class anglais extends AppCompatActivity {
         });
 
 
+
+
+
+
+
     }
+
+
+
+
+
+
 void reponse (){
         countdown.cancel();
         setRecord();
@@ -153,14 +172,14 @@ void afficherQuestion (){
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
-    for (final int[] i = {0}; i[0] <10;) {
+   //for (int i=0;i<10;) {
         int numq=getPif();
 
         question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setText(); // mettre une reponse en aléatoire du tableau
-        reponse2.setText();
-        reponse3.setText();
-        reponse4.setText();
+        reponse1.setText(""); // mettre une reponse en aléatoire du tableau
+        reponse2.setText("");
+        reponse3.setText("");
+        reponse4.setText("");
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -180,8 +199,8 @@ void afficherQuestion (){
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
                     if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
-                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.rouge);
+                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.rouge);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -196,7 +215,7 @@ void afficherQuestion (){
                 }.start();
                 }
                 tempsrestant=10000;
-                i[0]++;
+                //i++;
             }});
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -214,7 +233,7 @@ void afficherQuestion (){
                     }
                 }.start();
             }
-            else {reponse2.setBackgroundResource(R.color.rouge);
+            else {reponse2.setBackgroundResource(R.color.vert);
                 if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
                 if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
                 if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
@@ -232,7 +251,7 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            i[0]++;
+            //i++;
         }});
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -251,7 +270,7 @@ void afficherQuestion (){
                 }.start();
             }
             else {reponse3.setBackgroundResource(R.color.rouge);
-                if (reponse2.toString().equals("reponse2")) reponse2.setBackgroundResource(R.color.vert);
+                if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
                 if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
                 if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -268,7 +287,7 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            i[0]++;
+            //i++;
         }});
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
@@ -304,11 +323,11 @@ void afficherQuestion (){
                 }.start();
             }
             tempsrestant=10000;
-            i[0]++;
+            //i++;
         }});
 
     }
-}
+
 public void setRecord() {
         // vérifie si le record est battu et le change si oui
     SharedPreferences sp = getSharedPreferences("your_prefs", anglais.MODE_PRIVATE);
