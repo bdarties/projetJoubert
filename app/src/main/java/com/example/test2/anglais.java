@@ -91,7 +91,8 @@ public class anglais extends AppCompatActivity {
                 Question q = new Question(a,b,d,e,f);
                 results.add(q);
 
-tampon = b;
+// tampon = b;
+
 
 
 
@@ -162,7 +163,7 @@ void updateTimer()
     tempsRestant+=":"+milisec;
     timer.setText(tempsRestant);
 }
-void afficherQuestion (){
+void afficherQuestion (Question q){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
@@ -175,11 +176,12 @@ void afficherQuestion (){
    //for (int i=0;i<10;) {
         int numq=getPif();
 
-        question.setText(numq); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setText(""); // mettre une reponse en aléatoire du tableau
-        reponse2.setText("");
-        reponse3.setText("");
-        reponse4.setText("");
+
+        question.setText(q.question); // est censé choisir aléatoirement une question puis à faire les questions
+        reponse1.setText(q.reponse1); // mettre une reponse en aléatoire du tableau
+        reponse2.setText(q.reponse2);
+        reponse3.setText(q.reponse3);
+        reponse4.setText(q.reponse4);
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -199,8 +201,8 @@ void afficherQuestion (){
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
                     if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.rouge);
-                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.rouge);
+                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
+                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
