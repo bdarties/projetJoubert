@@ -96,9 +96,6 @@ public class anglais extends AppCompatActivity {
 
 // tampon = b;
 
-
-
-
                 Log.i("Cursor","Opération réussi");
             }
            /* public int Gettampon1(b) {
@@ -117,18 +114,7 @@ public class anglais extends AppCompatActivity {
                 afficherQuestion(results.get(0));
             }
         });
-
-
-
-
-
-
-
     }
-
-
-
-
 
 
 void reponse (){
@@ -153,6 +139,7 @@ void startTimer(){ // démarre le compte a rebourd
             updateTimer();
             reponse();
             tempsrestant=10000;
+            bonnereponse();
         }
     }.start();
 
@@ -167,7 +154,8 @@ void updateTimer()
     tempsRestant+=":"+milisec;
     timer.setText(tempsRestant);
 }
-void afficherQuestion (Question q){
+
+void afficherQuestion (Question result){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
@@ -181,11 +169,11 @@ void afficherQuestion (Question q){
         int numq=getPif();
 
 
-        question.setText(q.question); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setText(q.reponse1); // mettre une reponse en aléatoire du tableau
-        reponse2.setText(q.reponse2);
-        reponse3.setText(q.reponse3);
-        reponse4.setText(q.reponse4);
+        question.setText(result.getQuestion()); // est censé choisir aléatoirement une question puis à faire les questions
+        reponse1.setText(result.getReponse1()); // mettre une reponse en aléatoire du tableau
+        reponse2.setText(result.getReponse2());
+        reponse3.setText(result.getReponse3());
+        reponse4.setText(result.getReponse4());
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -204,9 +192,7 @@ void afficherQuestion (Question q){
                     }.start();
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
-                    if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-                    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
-                    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+                    bonnereponse();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -239,10 +225,8 @@ void afficherQuestion (Question q){
                     }
                 }.start();
             }
-            else {reponse2.setBackgroundResource(R.color.vert);
-                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
-                if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
-                if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+            else {reponse2.setBackgroundResource(R.color.rouge);
+                bonnereponse();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -276,9 +260,7 @@ void afficherQuestion (Question q){
                 }.start();
             }
             else {reponse3.setBackgroundResource(R.color.rouge);
-                if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
-                if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+               bonnereponse();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -312,9 +294,7 @@ void afficherQuestion (Question q){
                 }.start();
             }
             else {reponse4.setBackgroundResource(R.color.rouge);
-                if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-                if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
-                if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
+                bonnereponse();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -366,5 +346,11 @@ public static int pif(int min,int max)
     Random rand=new Random();
     return rand.nextInt((max - min) + 1) + min;
 }
+void bonnereponse(){
+    if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
+    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
+    if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
+    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
 
+}
 }
