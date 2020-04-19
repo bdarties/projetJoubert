@@ -31,6 +31,7 @@ public class anglais extends AppCompatActivity {
     int nbaleatoire=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
+    ArrayList<Question> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +78,11 @@ public class anglais extends AppCompatActivity {
             Log.e("execSQL","Erreur SQL : " +e.getMessage());
         }
         // on crée un tableau de string appelé results qui va contenir les questions de la base
-        final ArrayList<Question> results = new ArrayList<>();
+        results = new ArrayList<>();
         try { String tampon = "bonne réponse";
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
-            Cursor c = maBaseang.rawQuery("Select question from questionA order by id asc;", null);
+            Cursor c = maBaseang.rawQuery("Select * from questionA order by id asc;", null);
+            // BD: il faut selectionenr tous les champs, j'ai donc remplacé par *
             // on ajoute chaque ligne du cursor dans le tableau results
             while (c.moveToNext()) {
                 String a = c.getString(c.getColumnIndex("question"));
@@ -89,6 +91,7 @@ public class anglais extends AppCompatActivity {
                 String e = c.getString(c.getColumnIndex("reponse3"));
                 String f = c.getString(c.getColumnIndex("reponse4"));
                 Question q = new Question(a,b,d,e,f);
+                Log.i("mssage", ""+q);
                 results.add(q);
 
 // tampon = b;
@@ -110,7 +113,8 @@ public class anglais extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTimer();
-                afficherQuestion();
+                // bD : la il faut passer la question en parametre . j'ai passe la première par défaut, masi c'est pas correct
+                afficherQuestion(results.get(0));
             }
         });
 
