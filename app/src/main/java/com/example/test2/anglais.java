@@ -91,7 +91,7 @@ public class anglais extends AppCompatActivity {
                 String e = c.getString(c.getColumnIndex("reponse3"));
                 String f = c.getString(c.getColumnIndex("reponse4"));
                 Question q = new Question(a,b,d,e,f);
-                Log.i("mssage", ""+q);
+                Log.i("message", ""+q);
                 results.add(q);
 
 // tampon = b;
@@ -156,7 +156,7 @@ void updateTimer()
     timer.setText(tempsRestant);
 }
 
-void afficherQuestion (Question result){
+void afficherQuestion (final Question result){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
@@ -175,11 +175,12 @@ void afficherQuestion (Question result){
         reponse2.setText(result.getReponse2());
         reponse3.setText(result.getReponse3());
         reponse4.setText(result.getReponse4());
+        String tampon = result.getReponse1();
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 reponse();
-                if (reponse1.toString().equals("") ){ // mettre l'id de la reponse juste
+                if (reponse1.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
                     setScore();
                     CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -247,7 +248,7 @@ void afficherQuestion (Question result){
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse3.toString().equals("") ){ // mettre l'id de la reponse juste
+            if (reponse3.toString().equals(reponse1) ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -352,6 +353,11 @@ void bonnereponse(){
     if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
     if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
     if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+
+
+}
+void reponseRandum(){
+
 
 }
 }
