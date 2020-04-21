@@ -175,12 +175,12 @@ void afficherQuestion (final Question result){
         reponse2.setText(result.getReponse2());
         reponse3.setText(result.getReponse3());
         reponse4.setText(result.getReponse4());
-        String tampon = result.getReponse1();
+        final String tampon = result.getReponse1();
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 reponse();
-                if (reponse1.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
+                if (reponse1.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
                     setScore();
                     CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -214,7 +214,7 @@ void afficherQuestion (final Question result){
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse2.toString().equals("") ){ // mettre l'id de la reponse juste
+            if (reponse2.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                 reponse2.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -248,7 +248,7 @@ void afficherQuestion (final Question result){
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse3.toString().equals(reponse1) ){ // mettre l'id de la reponse juste
+            if (reponse3.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -282,7 +282,7 @@ void afficherQuestion (final Question result){
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse4.toString().equals("") ){ // mettre l'id de la reponse juste
+            if (reponse4.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                 reponse4.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
