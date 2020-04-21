@@ -140,7 +140,7 @@ void startTimer(){ // démarre le compte a rebourd
             updateTimer();
             reponse();
             tempsrestant=10000;
-            bonnereponse();
+
         }
     }.start();
 
@@ -180,7 +180,7 @@ void afficherQuestion (final Question result){
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 reponse();
-                if (reponse1.toString().equals(tampon) ){ // mettre l'id de la reponse juste
+                if (reponse1.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
                     reponse1.setBackgroundResource(R.color.vert);
                     setScore();
                     CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -194,7 +194,7 @@ void afficherQuestion (final Question result){
                     }.start();
                 }
                 else {reponse1.setBackgroundResource(R.color.rouge);
-                    bonnereponse();
+                    bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -214,7 +214,7 @@ void afficherQuestion (final Question result){
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse2.toString().equals(tampon) ){ // mettre l'id de la reponse juste
+            if (reponse2.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
                 reponse2.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -228,7 +228,7 @@ void afficherQuestion (final Question result){
                 }.start();
             }
             else {reponse2.setBackgroundResource(R.color.rouge);
-                bonnereponse();
+                bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -248,7 +248,7 @@ void afficherQuestion (final Question result){
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse3.toString().equals(tampon) ){ // mettre l'id de la reponse juste
+            if (reponse3.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -262,7 +262,7 @@ void afficherQuestion (final Question result){
                 }.start();
             }
             else {reponse3.setBackgroundResource(R.color.rouge);
-               bonnereponse();
+               bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -282,7 +282,7 @@ void afficherQuestion (final Question result){
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            if (reponse4.toString().equals(tampon) ){ // mettre l'id de la reponse juste
+            if (reponse4.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
                 reponse4.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
@@ -296,7 +296,7 @@ void afficherQuestion (final Question result){
                 }.start();
             }
             else {reponse4.setBackgroundResource(R.color.rouge);
-                bonnereponse();
+                bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -348,16 +348,15 @@ public static int pif(int min,int max)
     Random rand=new Random();
     return rand.nextInt((max - min) + 1) + min;
 }
-void bonnereponse(){
-    if (reponse2.toString().equals("")) reponse2.setBackgroundResource(R.color.vert);
-    if (reponse3.toString().equals("")) reponse3.setBackgroundResource(R.color.vert);
-    if (reponse1.toString().equals("")) reponse1.setBackgroundResource(R.color.vert);
-    if (reponse4.toString().equals("")) reponse4.setBackgroundResource(R.color.vert);
+void bonnereponse(String tampon ){
+
+
+    if (reponse2.toString().equals(tampon)) reponse2.setBackgroundResource(R.color.vert);
+    if (reponse3.toString().equals(tampon)) reponse3.setBackgroundResource(R.color.vert);
+    if (reponse1.toString().equals(tampon)) reponse1.setBackgroundResource(R.color.vert);
+    if (reponse4.toString().equals(tampon)) reponse4.setBackgroundResource(R.color.vert);
 
 
 }
-void reponseRandum(){
 
-
-}
 }
