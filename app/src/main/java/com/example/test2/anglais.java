@@ -25,10 +25,10 @@ public class anglais extends AppCompatActivity {
     CountDownTimer countdown;
     long tempsrestant = 10000; // 10 secondes
     TextView question;
-    Button reponse1,reponse2,reponse3,reponse4;
+    Button reponse1,reponse2,reponse3,reponse4,questionsuivante;
     int nbrecord =0;
-    int nbscore=0;
-    int nbaleatoire=5; // à changer pour la taille de la bdd
+    int nbscore=0,nbreponses=4;
+    int taillebdd=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
     ArrayList<Question> results;
@@ -37,6 +37,7 @@ public class anglais extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anglais);
+        // apprelation des composants
         reponse1=findViewById(R.id.reponse1);
         reponse2=findViewById(R.id.reponse2);
         reponse3=findViewById(R.id.reponse3);
@@ -47,15 +48,15 @@ public class anglais extends AppCompatActivity {
         timer=findViewById(R.id.timer);
         commencer=findViewById(R.id.commencer);
         titreAng=findViewById(R.id.titreAng);
-        setTableau(); // rentre les nombres pour la taille de la bdd dans un tableau
+        questionsuivante=findViewById(R.id.questionsuivante);
+        // definition de la visibilité des boutons non utiles au debut
         reponse1.setVisibility(View.INVISIBLE);
         reponse2.setVisibility(View.INVISIBLE);
         reponse3.setVisibility(View.INVISIBLE);
         reponse4.setVisibility(View.INVISIBLE);
         question.setVisibility(View.INVISIBLE);
-
+        questionsuivante.setVisibility(View.INVISIBLE);
         setRecord();
-
 
         try {
             maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion",MODE_PRIVATE,null);
@@ -96,13 +97,9 @@ public class anglais extends AppCompatActivity {
                 Log.i("message", ""+q);
                 results.add(q);
 
-// tampon = b;
-
                 Log.i("Cursor","Opération réussi");
             }
-           /* public int Gettampon1(b) {
 
-            return tampon1; }*/
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -113,12 +110,23 @@ public class anglais extends AppCompatActivity {
             public void onClick(View v) {
                 startTimer();
                 ;// bD : la il faut passer la question en parametre . j'ai passe la première par défaut, masi c'est pas correct
-                afficherQuestion(results.get(i++));
+                afficherQuestion(results.get(getPif()));
+            }
+        });
+        questionsuivante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i=0;
+                if (i<10){
+                afficherQuestion(results.get(getPif()));
+                questionsuivante.setVisibility(View.INVISIBLE);
+                i++;}
+                else { // mettre pour quand la partie est finie
+
+                }
             }
         });
     }
-
-    int i=0;
 
 void reponse (){
         countdown.cancel();
@@ -138,15 +146,22 @@ void startTimer(){ // démarre le compte a rebourd
         }
         @Override
         public void onFinish() {
-            tempsrestant=0;
-            updateTimer();
-            reponse();
-            tempsrestant=10000;
-           /* reponse1.setEnabled(true);
-            reponse2.setEnabled(false);
-            reponse3.setEnabled(false);
-            reponse4.setEnabled(false); */
+            if (tempsrestant <15) {// milisecondes : temps fini
+                                    // partie pour si aucune réponse selectionnée
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        tempsrestant=0;
+                        desactivebouton();
+                    }
+                    @Override
+                    public void onFinish() {
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
+                    }
 
+                }.start();
+            }
         }
     }.start();
 
@@ -166,73 +181,66 @@ void afficherQuestion (final Question result){
         // affiche les questions tour à tour
     commencer.setVisibility(View.INVISIBLE);
     titreAng.setVisibility(View.INVISIBLE);
-                                               //mettre id pour récup la question
     question.setVisibility(View.VISIBLE);
     reponse1.setVisibility(View.VISIBLE);
     reponse2.setVisibility(View.VISIBLE);
     reponse3.setVisibility(View.VISIBLE);
     reponse4.setVisibility(View.VISIBLE);
 
-   //for (int i=0;i<10;) {
-        int numq=getPif();
-
-
-        question.setText(result.getQuestion()); // est censé choisir aléatoirement une question puis à faire les questions
-        final String tampon = result.getReponse1();
-        btnReponse(result);
-
-        reponse1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                reponse1.setEnabled(false);
-                reponse();
-                if (reponse1.toString().equals(result.getReponse1()) ){// mettre l'id de la reponse juste
-                    reponse1.setBackgroundResource(R.color.vert);
-
-                    setScore();
-                    CountDownTimer time = new CountDownTimer(3000,1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                        }
-                        @Override
-                        public void onFinish() {
-                            reponse1.setBackgroundResource(R.color.bleu);
-                        }
-
-                    }.start();
-                }
-                else {reponse1.setBackgroundResource(R.color.rouge);
-                    bonnereponse(tampon);
+    question.setText(result.getQuestion()); // affiche la question choisie aléatoirement
+    final String tampon = result.getReponse1(); // variable tampon prenant la bonne réponse de la question
+    btnReponse(result);
+    reponse1.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            reponse();
+            if (reponse1.toString().equals(tampon) ){// mettre l'id de la reponse juste
+                reponse1.setBackgroundResource(R.color.vert);
+                setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse1.setBackgroundResource(R.color.bleu);
-                        reponse2.setBackgroundResource(R.color.bleu);
-                        reponse3.setBackgroundResource(R.color.bleu);
-                        reponse4.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
+                    }
+
+                }.start();
+            }
+            else {reponse1.setBackgroundResource(R.color.rouge);
+                bonnereponse(tampon);
+                CountDownTimer time = new CountDownTimer(3000,1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
+                    }
+                    @Override
+                    public void onFinish() {
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
                 }
                 tempsrestant=10000;
-                //i++;
             }});
     reponse2.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            reponse2.setEnabled(false);
-            if (reponse2.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
+            if (reponse2.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                 reponse2.setBackgroundResource(R.color.vert);
                 setScore();
 
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) { desactivebouton();
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse2.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
 
                 }.start();
@@ -241,36 +249,33 @@ void afficherQuestion (final Question result){
                 bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) { desactivebouton();
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse1.setBackgroundResource(R.color.bleu);
-                        reponse2.setBackgroundResource(R.color.bleu);
-                        reponse3.setBackgroundResource(R.color.bleu);
-                        reponse4.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
         }});
     reponse3.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-
-            if (reponse3.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
+            if (reponse3.toString().equals(tampon) ){ // mettre l'id de la reponse juste
                 reponse3.setBackgroundResource(R.color.vert);
-
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) { desactivebouton();
-
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse3.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }
@@ -278,34 +283,33 @@ void afficherQuestion (final Question result){
                bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) {desactivebouton();
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse1.setBackgroundResource(R.color.bleu);
-                        reponse2.setBackgroundResource(R.color.bleu);
-                        reponse3.setBackgroundResource(R.color.bleu);
-                        reponse4.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
         }});
     reponse4.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             reponse();
-            reponse4.setEnabled(false);
-            if (reponse4.toString().equals(result.getReponse1()) ){ // mettre l'id de la reponse juste
+            if (reponse4.toString().equals(tampon)){ // mettre l'id de la reponse juste
                 reponse4.setBackgroundResource(R.color.vert);
                 setScore();
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) { desactivebouton();
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse4.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }
@@ -313,19 +317,17 @@ void afficherQuestion (final Question result){
                 bonnereponse(tampon);
                 CountDownTimer time = new CountDownTimer(3000,1000) {
                     @Override
-                    public void onTick(long millisUntilFinished) { desactivebouton();
+                    public void onTick(long millisUntilFinished) {
+                        desactivebouton();
                     }
                     @Override
                     public void onFinish() {
-                        reponse1.setBackgroundResource(R.color.bleu);
-                        reponse2.setBackgroundResource(R.color.bleu);
-                        reponse3.setBackgroundResource(R.color.bleu);
-                        reponse4.setBackgroundResource(R.color.bleu);
+                        reactiverBouton();
+                        questionsuivante.setVisibility(View.VISIBLE);
                     }
                 }.start();
             }
             tempsrestant=10000;
-            //i++;
         }});
 
     }
@@ -344,9 +346,9 @@ public void setRecord() {
 // partie tirage nb aléatoire sans repetition
 private void setTableau()
 {   // On rempli le tableau "nombres" de 1 à nb
-    for(int i=1;i<=nbaleatoire;i++) {nombres.add(i);}
+    for(int i=1;i<=taillebdd;i++) {nombres.add(i);}
 }
-public Integer getPif()
+public Integer getPif() // tirage aléatoire pour les questions
 {
     if(nombres.size()==0) {setTableau();} // si le tableau de nombre est vide on le réinitialise
     int i=pif(1,nombres.size());
@@ -354,8 +356,16 @@ public Integer getPif()
     nombres.remove(i);
     return retour;
 }
+
+public Integer getPif2() // tirage aléatoire pour l'emplacement des réponses
+{
+    if(nombres.size()==0) {for(int i=1;i<=nbreponses;i++) {nombres.add(i);}}
+    int i=pif(1,nombres.size());
+    int retour=nombres.get(i);
+    nombres.remove(i);
+    return retour;
+}
 // Tirage au sort
-// ENTREE : la valeur min (ex : 0) et la valeur max (ex : 63)
 // SORTIE : un nombre entier compris entre min et max
 public static int pif(int min,int max)
 {
@@ -363,28 +373,27 @@ public static int pif(int min,int max)
     return rand.nextInt((max - min) + 1) + min;
 }
 void btnReponse(Question result){
-    nbaleatoire=4;
-    int i =getPif();
-    int a =getPif();
-    int b =getPif();
-    int c =getPif();
 
+    int i =getPif2();
+    int a =getPif2();
+    int b =getPif2();
+    int c =getPif2();
     // btn question 1 :
     if (i==1){reponse1.setText(result.getReponse1()); }
     else if (i==2) {reponse1.setText(result.getReponse2());}
     else if (i==3) { reponse1.setText(result.getReponse3());}
     else if (i==4) { reponse1.setText(result.getReponse4());}
-
+    // btn question 2 :
     if (a==1){reponse2.setText(result.getReponse1()); }
     else if (a==2) {reponse2.setText(result.getReponse2());}
     else if (a==3) { reponse2.setText(result.getReponse3());}
     else if (a==4) { reponse2.setText(result.getReponse4());}
-
+    // btn question 3 :
     if (b==1){reponse3.setText(result.getReponse1()); }
     else if (b==2) {reponse3.setText(result.getReponse2());}
     else if (b==3) {reponse3.setText(result.getReponse3());}
     else if (b==4) { reponse3.setText(result.getReponse4());}
-
+    // btn question 4 :
     if (c==1){reponse4.setText(result.getReponse1()); }
     else if (c==2) {reponse4.setText(result.getReponse2());}
     else if (c==3) { reponse4.setText(result.getReponse3());}
@@ -392,17 +401,26 @@ void btnReponse(Question result){
 }
 void bonnereponse(String tampon ){
     if (reponse2.toString().equals(tampon)) reponse2.setBackgroundResource(R.color.vert);
-    if (reponse3.toString().equals(tampon)) reponse3.setBackgroundResource(R.color.vert);
-    if (reponse1.toString().equals(tampon)) reponse1.setBackgroundResource(R.color.vert);
-    if (reponse4.toString().equals(tampon)) reponse4.setBackgroundResource(R.color.vert);
+    else if (reponse3.toString().equals(tampon)) reponse3.setBackgroundResource(R.color.vert);
+    else if (reponse1.toString().equals(tampon)) reponse1.setBackgroundResource(R.color.vert);
+    else if (reponse4.toString().equals(tampon)) reponse4.setBackgroundResource(R.color.vert);
 
 
 }
-void desactivebouton()
-{    reponse1.setEnabled(false);
-    reponse2.setEnabled(false);
-    reponse3.setEnabled(false);
-    reponse4.setEnabled(false);
+void desactivebouton() {
+        reponse1.setEnabled(false);
+        reponse2.setEnabled(false);
+        reponse3.setEnabled(false);
+        reponse4.setEnabled(false);
 }
-
+void reactiverBouton(){
+    reponse1.setEnabled(true);
+    reponse2.setEnabled(true);
+    reponse3.setEnabled(true);
+    reponse4.setEnabled(true);
+    reponse1.setBackgroundResource(R.color.bleu);
+    reponse2.setBackgroundResource(R.color.bleu);
+    reponse3.setBackgroundResource(R.color.bleu);
+    reponse4.setBackgroundResource(R.color.bleu);
+}
 }
