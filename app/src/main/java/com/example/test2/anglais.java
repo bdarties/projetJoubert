@@ -171,11 +171,8 @@ void afficherQuestion (final Question result){
 
 
         question.setText(result.getQuestion()); // est censé choisir aléatoirement une question puis à faire les questions
-        reponse1.setText(result.getReponse1()); // mettre une reponse en aléatoire du tableau
-        reponse2.setText(result.getReponse2());
-        reponse3.setText(result.getReponse3());
-        reponse4.setText(result.getReponse4());
         final String tampon = result.getReponse1();
+        btnReponse(result);
 
         reponse1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -348,9 +345,31 @@ public static int pif(int min,int max)
     Random rand=new Random();
     return rand.nextInt((max - min) + 1) + min;
 }
+void btnReponse(Question result){
+    nbaleatoire=4;
+    int i =getPif();
+    // btn question 1 :
+    if (i==1){reponse1.setText(result.getReponse1()); }
+    else if (i==2) {reponse1.setText(result.getReponse2());}
+    else if (i==3) { reponse1.setText(result.getReponse3());}
+    else if (i==4) { reponse1.setText(result.getReponse4());}
+    i=getPif();
+    if (i==1){reponse2.setText(result.getReponse1()); }
+    else if (i==2) {reponse2.setText(result.getReponse2());}
+    else if (i==3) { reponse2.setText(result.getReponse3());}
+    else if (i==4) { reponse2.setText(result.getReponse4());}
+    i=getPif();
+    if (i==1){reponse3.setText(result.getReponse1()); }
+    else if (i==2) {reponse3.setText(result.getReponse2());}
+    else if (i==3) { reponse3.setText(result.getReponse3());}
+    else if (i==4) { reponse3.setText(result.getReponse4());}
+    i=getPif();
+    if (i==1){reponse4.setText(result.getReponse1()); }
+    else if (i==2) {reponse4.setText(result.getReponse2());}
+    else if (i==3) { reponse4.setText(result.getReponse3());}
+    else if (i==4) { reponse4.setText(result.getReponse4());}
+}
 void bonnereponse(String tampon ){
-
-
     if (reponse2.toString().equals(tampon)) reponse2.setBackgroundResource(R.color.vert);
     if (reponse3.toString().equals(tampon)) reponse3.setBackgroundResource(R.color.vert);
     if (reponse1.toString().equals(tampon)) reponse1.setBackgroundResource(R.color.vert);
