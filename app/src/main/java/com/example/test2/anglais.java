@@ -110,12 +110,13 @@ public class anglais extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTimer();
-                // bD : la il faut passer la question en parametre . j'ai passe la première par défaut, masi c'est pas correct
-                afficherQuestion(results.get(0));
+                ;// bD : la il faut passer la question en parametre . j'ai passe la première par défaut, masi c'est pas correct
+                afficherQuestion(results.get(i++));
             }
         });
     }
 
+    int i=0;
 
 void reponse (){
         countdown.cancel();
