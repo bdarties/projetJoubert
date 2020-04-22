@@ -30,6 +30,7 @@ public class anglais extends AppCompatActivity {
     int nbscore=0,nbreponses=4;
     int taillebdd=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombres=new ArrayList<Integer>();
+    private ArrayList<Integer> tableau2=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
     ArrayList<Question> results;
 
@@ -37,7 +38,7 @@ public class anglais extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anglais);
-        // apprelation des composants
+        // appelation des composants
         reponse1=findViewById(R.id.reponse1);
         reponse2=findViewById(R.id.reponse2);
         reponse3=findViewById(R.id.reponse3);
@@ -72,8 +73,12 @@ public class anglais extends AppCompatActivity {
             // on la vide (sinon on recréerait a chaque fois les questions a chaque nouveau lancement)
             maBaseang.execSQL(" delete from questionA where 1;");
             // on la remplit de quelques elements  la table question
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (25,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (26,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (3,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (5,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+
 
             Log.i("BDD","Opération réussi");
 
@@ -359,10 +364,10 @@ public Integer getPif() // tirage aléatoire pour les questions
 
 public Integer getPif2() // tirage aléatoire pour l'emplacement des réponses
 {
-    if(nombres.size()==0) {for(int i=1;i<=nbreponses;i++) {nombres.add(i);}}
-    int i=pif(1,nombres.size());
-    int retour=nombres.get(i);
-    nombres.remove(i);
+    if(tableau2.size()==0) {for(int i=1;i<=nbreponses;i++) {tableau2.add(i);}}
+    int i=pif(1,tableau2.size());
+    int retour=tableau2.get(i);
+    tableau2.remove(i);
     return retour;
 }
 // Tirage au sort
@@ -404,8 +409,6 @@ void bonnereponse(String tampon ){
     else if (reponse3.toString().equals(tampon)) reponse3.setBackgroundResource(R.color.vert);
     else if (reponse1.toString().equals(tampon)) reponse1.setBackgroundResource(R.color.vert);
     else if (reponse4.toString().equals(tampon)) reponse4.setBackgroundResource(R.color.vert);
-
-
 }
 void desactivebouton() {
         reponse1.setEnabled(false);
