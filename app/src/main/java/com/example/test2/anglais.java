@@ -2,6 +2,7 @@ package com.example.test2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -21,20 +22,21 @@ public class anglais extends AppCompatActivity {
     TextView titreAng;
     Button commencer;
     TextView timer;
-    TextView record;
+    TextView record, msgfin, pageaccueil;
     TextView score;
     CountDownTimer countdown;
     long tempsrestant = 10000; // 10 secondes
     TextView question;
     Button reponse1, reponse2, reponse3, reponse4, questionsuivante;
     int nbrecord = 0;
-    int nbscore = 0, nbreponses = 4;
+    int nbscore = 0;
     int taillebdd = 5; // à changer pour la taille de la bdd
     private ArrayList<Integer> indicesDesQuestionsAPoser = new ArrayList<Integer>();
     private ArrayList<Integer> indicesDesReponsesAAfficher = new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
     ArrayList<Question> tableauDeTouteslesQuestions;
     Random rand = new Random();
+    int nombrequestion=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class anglais extends AppCompatActivity {
         commencer = findViewById(R.id.commencer);
         titreAng = findViewById(R.id.titreAng);
         questionsuivante = findViewById(R.id.questionsuivante);
+        msgfin = findViewById(R.id.msgfin);
+        pageaccueil = findViewById(R.id.pageaccueil);
         // definition de la visibilité des boutons non utiles au debut
         reponse1.setVisibility(View.INVISIBLE);
         reponse2.setVisibility(View.INVISIBLE);
@@ -59,10 +63,13 @@ public class anglais extends AppCompatActivity {
         reponse4.setVisibility(View.INVISIBLE);
         question.setVisibility(View.INVISIBLE);
         questionsuivante.setVisibility(View.INVISIBLE);
+        msgfin.setVisibility(View.INVISIBLE);
+        pageaccueil.setVisibility(View.INVISIBLE);
         setRecord();
 
 
-        // on remplit le tableau des indices des questions à poser
+
+        // on remplit le tableau des indices des questions à poser pour les 10 questions de la partie
         remplirTableauDeValeurs(indicesDesQuestionsAPoser, taillebdd);
 
 
@@ -130,14 +137,34 @@ public class anglais extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (indicesDesQuestionsAPoser.size() > 0) { // il reste des questions
-                    Log.i ("questions", "il reste "+ indicesDesQuestionsAPoser.size()+ " dans la base");
+                    Log.i("questions", "il reste " + indicesDesQuestionsAPoser.size() + " dans la base");
                     Question questionTireeAuSort = obtenirQuestionAleatoire();
                     afficherQuestion(questionTireeAuSort);
-
+                    tempsrestant = 10000;
+                    updateTimer();
+                    startTimer();
                     questionsuivante.setVisibility(View.INVISIBLE);
-                } else { // mettre pour quand la partie est finie
-
                 }
+                 if (indicesDesQuestionsAPoser.size() == 1){
+                     questionsuivante.setText("Voir les résultats");
+                     Question questionTireeAuSort = obtenirQuestionAleatoire();
+                     afficherQuestion(questionTireeAuSort);
+                     tempsrestant = 10000;
+                     updateTimer();
+                     startTimer();
+                     questionsuivante.setVisibility(View.INVISIBLE);}
+                else {
+                afficherScore();
+                pageaccueil.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        pageaccueil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { // on retourne à la page d'accueil
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+
             }
         });
     }
@@ -188,6 +215,7 @@ public class anglais extends AppCompatActivity {
                         public void onFinish() {
                             reactiverBouton();
                             questionsuivante.setVisibility(View.VISIBLE);
+                            cacherQuestions();
                         }
 
                     }.start();
@@ -242,6 +270,7 @@ public class anglais extends AppCompatActivity {
                     public void onFinish() {
                         reactiverBouton();
                         questionsuivante.setVisibility(View.VISIBLE);
+                        cacherQuestions();
                     }
 
                 }.start();
@@ -268,6 +297,7 @@ public class anglais extends AppCompatActivity {
                     public void onFinish() {
                         reactiverBouton();
                         questionsuivante.setVisibility(View.VISIBLE);
+                        cacherQuestions();
                     }
                 }.start();
 
@@ -283,8 +313,9 @@ public class anglais extends AppCompatActivity {
 
                 } else {
                     reponse3.setBackgroundResource(R.color.rouge);
-                }
                     bonnereponse(tampon);
+                }
+
                     CountDownTimer time = new CountDownTimer(3000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -295,6 +326,7 @@ public class anglais extends AppCompatActivity {
                         public void onFinish() {
                             reactiverBouton();
                             questionsuivante.setVisibility(View.VISIBLE);
+                            cacherQuestions();
                         }
                     }.start();
 
@@ -310,8 +342,8 @@ public class anglais extends AppCompatActivity {
 
                 } else {
                     reponse4.setBackgroundResource(R.color.rouge);
-                }
                     bonnereponse(tampon);
+                }
                     CountDownTimer time = new CountDownTimer(3000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -322,6 +354,7 @@ public class anglais extends AppCompatActivity {
                         public void onFinish() {
                             reactiverBouton();
                             questionsuivante.setVisibility(View.VISIBLE);
+                            cacherQuestions();
                         }
                     }.start();
 
@@ -369,7 +402,7 @@ public class anglais extends AppCompatActivity {
 
 
     /*
-      cette méthode rempllit le tableau passé en paramtères de valeurs entre 1 et ValeurMax
+      cette méthode remplit le tableau passé en paramètres de valeurs entre 1 et ValeurMax
     */
     private void remplirTableauDeValeurs(ArrayList<Integer> tableauParam, int valeurMax) {   // On rempli le tableau "nombres" de 0 à 3
         for (int i = 0; i < valeurMax; i++) {
@@ -441,7 +474,7 @@ public class anglais extends AppCompatActivity {
         }
     }
 
-    void bonnereponse(String tampon) {
+    void bonnereponse(final String tampon) {
         if (reponse1.toString().equals(tampon)) {
             reponse1.setBackgroundResource(R.color.vert);
         } else if (reponse2.toString().equals(tampon)) {
@@ -451,8 +484,6 @@ public class anglais extends AppCompatActivity {
         } else if (reponse4.toString().equals(tampon)) {
             reponse4.setBackgroundResource(R.color.vert);
         }
-
-
     }
 
     void desactivebouton() {
@@ -471,5 +502,31 @@ public class anglais extends AppCompatActivity {
         reponse2.setBackgroundResource(R.color.bleu);
         reponse3.setBackgroundResource(R.color.bleu);
         reponse4.setBackgroundResource(R.color.bleu);
+    }
+    void afficherScore(){ // on cache tout
+        reponse1.setVisibility(View.INVISIBLE);
+        reponse2.setVisibility(View.INVISIBLE);
+        reponse3.setVisibility(View.INVISIBLE);
+        reponse4.setVisibility(View.INVISIBLE);
+        question.setVisibility(View.INVISIBLE);
+        commencer.setVisibility(View.INVISIBLE);
+        titreAng.setVisibility(View.INVISIBLE);
+        timer.setVisibility(View.INVISIBLE);
+        record.setVisibility(View.INVISIBLE);
+        score.setVisibility(View.INVISIBLE);
+        questionsuivante.setVisibility(View.INVISIBLE);
+        // message score
+        if (nbscore>nbrecord){
+            msgfin.setText("Félicitation vous avez établi un nouveau record :" + nbscore);
+        }
+        else {msgfin.setText("Félicitation vous avez marqué " + nbscore + " points");}
+
+    }
+    void cacherQuestions(){
+        reponse1.setVisibility(View.INVISIBLE);
+        reponse2.setVisibility(View.INVISIBLE);
+        reponse3.setVisibility(View.INVISIBLE);
+        reponse4.setVisibility(View.INVISIBLE);
+        question.setVisibility(View.INVISIBLE);
     }
 }

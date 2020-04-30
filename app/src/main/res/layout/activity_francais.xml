@@ -8,12 +8,167 @@
     android:background="@drawable/fond_degrade_bleu">
 
     <TextView
-        android:id="@+id/titrefr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="100dp"
-        android:text="Bienvenue sur le jeu pour le francais"
+        android:id="@+id/titreFr"
+        android:layout_width="402dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="409dp"
+        android:gravity="center"
+        android:text="Bienvenue sur le jeu pour apprendre le français tout en s'amusant"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="56dp"
+        android:text="10:000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/titreAng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/score"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/commencer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="260dp"
+        android:text="Commencer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreAng" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="406dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="160dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reponse1"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:background="@color/bleu"
+        android:text="reponse1"
+        app:layout_constraintBottom_toTopOf="@+id/reponse3"
+        app:layout_constraintEnd_toStartOf="@+id/reponse2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commencer" />
+
+    <Button
+        android:id="@+id/reponse2"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
+        android:background="@color/bleu"
+        android:text="reponse2"
+        app:layout_constraintBottom_toTopOf="@+id/reponse4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commencer" />
+
+    <Button
+        android:id="@+id/reponse3"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="89dp"
+        android:background="@color/bleu"
+        android:text="reponse3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reponse4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/reponse4"
+        android:layout_width="126dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="89dp"
+        android:background="@color/bleu"
+        android:text="reponse4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/record"
+        android:layout_width="296dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="right"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="196dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="40dp"
+        android:text="Score actuel : 0"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/questionsuivante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="125dp"
+        android:text="Question Suivante"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question" />
+
+    <TextView
+        android:id="@+id/msgfin"
+        android:layout_width="271dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="20dp"
+        android:text=""
+        android:textColorHint="#F44336"
+        android:textSize="30sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/reponse2"
+        app:layout_constraintEnd_toStartOf="@+id/question"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toEndOf="@+id/question"
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
+
+    <Button
+        android:id="@+id/pageaccueil"
+        android:layout_width="193dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="155dp"
+        android:text="Retour à la page d'accueil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
