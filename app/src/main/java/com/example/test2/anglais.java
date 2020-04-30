@@ -30,6 +30,7 @@ public class anglais extends AppCompatActivity {
     int nbscore=0,nbreponses=4;
     int taillebdd=5; // à changer pour la taille de la bdd
     private ArrayList<Integer> nombresQuestion=new ArrayList<Integer>();
+    private ArrayList<Integer> tableau2=new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
     ArrayList<Question> results;
 
@@ -37,7 +38,7 @@ public class anglais extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anglais);
-        // apprelation des composants
+        // appelation des composants
         reponse1=findViewById(R.id.reponse1);
         reponse2=findViewById(R.id.reponse2);
         reponse3=findViewById(R.id.reponse3);
@@ -57,6 +58,8 @@ public class anglais extends AppCompatActivity {
         question.setVisibility(View.INVISIBLE);
         questionsuivante.setVisibility(View.INVISIBLE);
         setRecord();
+        setTableau2();
+        setTableau();
 
         try {
             maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion",MODE_PRIVATE,null);
@@ -75,8 +78,9 @@ public class anglais extends AppCompatActivity {
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (3,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (5,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
+
 
             Log.i("BDD","Opération réussi");
 
@@ -119,7 +123,7 @@ public class anglais extends AppCompatActivity {
         questionsuivante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i=0;
+                int i=1; // car il y a deja eu la premiere question
                 if (i<10){
                 afficherQuestion(results.get(getPif()));
                 questionsuivante.setVisibility(View.INVISIBLE);
@@ -348,16 +352,9 @@ public void setRecord() {
     }
 // partie tirage nb aléatoire sans repetition
 private void setTableau()
-{   // On rempli le tableau "nombresQuestions" de 1 à nb
-    for(int i=1;i<=taillebdd;i++) { nombresQuestion.add(i);}
-}// Tirage au sort
-    // SORTIE : un nombre entier compris entre min et max
-
-    public static int pif(int min,int max)
-    {
-        Random rand=new Random();
-        return rand.nextInt((max - min) + 1) + min; //
-    }
+{   // On rempli le tableau "nombres" de 1 à nb
+    for(int i=1;i<=taillebdd;i++) {nombresQuestion.add(i);}
+}
 public Integer getPif() // tirage aléatoire pour les questions
 {
     if(nombresQuestion.size()==0) {setTableau();} // si le tableau de nombre est vide on le réinitialise
@@ -366,16 +363,25 @@ public Integer getPif() // tirage aléatoire pour les questions
     nombresQuestion.remove(i);
     return retour;
 }
-
-public Integer getPif2() // tirage aléatoire pour l'emplacement des réponses
+private void setTableau2()
+{   // On rempli le tableau "nombres" de 1 à 4
+    for(int i=1;i<=nbreponses;i++) {tableau2.add(i);}
+}
+public int getPif2() // tirage aléatoire pour l'emplacement des réponses
 {
-    if(nombresQuestion.size()==0) {for(int i=1;i<=nbreponses;i++) {nombresQuestion.add(i);}}
-    int i=pif(0,nombresQuestion.size()-1);
-    int retour=nombresQuestion.get(i);
-    nombresQuestion.remove(i);
+    if(tableau2.size()==0) {for(int i=1;i<=nbreponses;i++) {tableau2.add(i);}}
+    int i=pif(1,tableau2.size());
+    int retour=tableau2.get(i);
+    tableau2.remove(i);
     return retour;
 }
-
+// Tirage au sort
+// SORTIE : un nombre entier compris entre min et max
+public static int pif(int min,int max)
+{
+    Random rand=new Random();
+    return rand.nextInt((max - min) + 1) + min;
+}
 void btnReponse(Question result){
 
     int i =getPif2();
