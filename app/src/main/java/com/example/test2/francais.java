@@ -513,6 +513,7 @@ public class francais extends AppCompatActivity {
         record.setVisibility(View.INVISIBLE);
         score.setVisibility(View.INVISIBLE);
         questionsuivante.setVisibility(View.INVISIBLE);
+        msgfin.setVisibility(View.VISIBLE);
         // message score
         if (nbscore>nbrecord){
             msgfin.setText("Félicitation vous avez établi un nouveau record :" + nbscore);
