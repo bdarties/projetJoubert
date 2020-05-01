@@ -528,4 +528,4 @@ public class francais extends AppCompatActivity {
         reponse4.setVisibility(View.INVISIBLE);
         question.setVisibility(View.INVISIBLE);
     }
-}
+}}

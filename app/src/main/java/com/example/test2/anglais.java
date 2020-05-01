@@ -36,7 +36,6 @@ public class anglais extends AppCompatActivity {
     SQLiteDatabase maBaseang;
     ArrayList<Question> tableauDeTouteslesQuestions;
     Random rand = new Random();
-    int nombrequestion=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,6 @@ public class anglais extends AppCompatActivity {
         msgfin.setVisibility(View.INVISIBLE);
         pageaccueil.setVisibility(View.INVISIBLE);
         setRecord();
-
 
 
         // on remplit le tableau des indices des questions à poser pour les 10 questions de la partie
@@ -515,6 +513,7 @@ public class anglais extends AppCompatActivity {
         record.setVisibility(View.INVISIBLE);
         score.setVisibility(View.INVISIBLE);
         questionsuivante.setVisibility(View.INVISIBLE);
+        msgfin.setVisibility(View.VISIBLE);
         // message score
         if (nbscore>nbrecord){
             msgfin.setText("Félicitation vous avez établi un nouveau record :" + nbscore);
