@@ -30,7 +30,7 @@ public class anglais extends AppCompatActivity {
     Button reponse1, reponse2, reponse3, reponse4, questionsuivante;
     int nbrecord = 0;
     int nbscore = 0;
-    int taillebdd = 5; // à changer pour la taille de la bdd
+    int taillebdd = 10; // nombre de question par partie
     private ArrayList<Integer> indicesDesQuestionsAPoser = new ArrayList<Integer>();
     private ArrayList<Integer> indicesDesReponsesAAfficher = new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
@@ -87,10 +87,29 @@ public class anglais extends AppCompatActivity {
             // on la remplit de quelques elements  la table question
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
             maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (3,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (5,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (3,' What is the word for serviette ?', 'Towel', 'Service', 'Laundry', 'Tawel');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the word for : conseil ?', 'advice', 'message','helper','device');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (5,'What is the translation for : mouse ?', 'Souris', 'Maison' ,'Bouche','Chaleur');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (6,'What is the word for : Apple ? ', 'Pomme', 'Pêche','Téléphone','Manger');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (7,' You ______ do it if you don t want to.', 'do not have to', 'must not' ,'can not','could not');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (8,'What is the opposite of : cold ? ', 'hot', 'calor' ,'warning','cool');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (9,' Where _______ that hat ?', 'did you get', 'did you got' ,'does you get','have you get');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (10,'What is the opposite for up ? ', 'down', 'pu','left', 'toward');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (11,' ______ car is yours?', 'Which', 'Whose' ,'Who','Where');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (12,'What the translation for Rouge', 'red', 'reed' ,'Green','raid');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (13,' My baby sister _______ yesterday . ', 'was born ', 'borned' ,'is born','will born');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (14,'What is the word for : Monkey ?', 'Singe', 'Clef' ,'Appartement','Elephant');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (15,' I enjoy ______ beer. ', 'drinking', 'drinked' ,'drink','to drink');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (16,' What is the word for : Fly ?' ,'Voler', 'Manger' ,'Oublier','Croiser');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (17,'What is the equivalent of Intelligent ?', 'Smart', 'Bright' ,'Clever','All of them');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (18,'What is the translation of : Crier ?', 'Shout', 'Cry' ,'Hit','Hurry');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (19,'What is the opposite of day ', 'Night ', 'Pleasure' ,'Die','Hard');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (20,' Complete the sentence : Unfortunately, it costs _______ of money.', 'a lot', 'much' ,'many','little');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (21,' I can t find the cat. Have you seen ______ ?', 'it', 'him' ,'her','them');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (22,' He lives ______ the third floor ', 'on', 'at' ,'in','for');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (23,' I need to ______ my English.', 'practice', 'practise' ,'practised','patrick');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (24,' Don t go away, _______ back soon.', 'I will be', ' I would be' ,'I will','I come');");
+            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (25,' Does that boat belong to _______ ?', 'them', 'theirs' ,'they','he');");
 
             Log.i("BDD", "Opération réussi");
 
@@ -143,14 +162,7 @@ public class anglais extends AppCompatActivity {
                     startTimer();
                     questionsuivante.setVisibility(View.INVISIBLE);
                 }
-                 if (indicesDesQuestionsAPoser.size() == 1){
-                     questionsuivante.setText("Voir les résultats");
-                     Question questionTireeAuSort = obtenirQuestionAleatoire();
-                     afficherQuestion(questionTireeAuSort);
-                     tempsrestant = 10000;
-                     updateTimer();
-                     startTimer();
-                     questionsuivante.setVisibility(View.INVISIBLE);}
+
                 else {
                 afficherScore();
                 pageaccueil.setVisibility(View.VISIBLE);
@@ -173,9 +185,9 @@ public class anglais extends AppCompatActivity {
     * elle est à appeler a chaque fois que l'on veut afficher une nouvelle questions
     * */
     Question obtenirQuestionAleatoire ( ) {
-        Question questionRetournée =  tableauDeTouteslesQuestions.get(valeurAuPifDuTableau(indicesDesQuestionsAPoser));
-        Log.i("question selelectionnee", questionRetournée.getQuestion());
-        return questionRetournée;
+        Question questionRetournee =  tableauDeTouteslesQuestions.get(valeurAuPifDuTableau(indicesDesQuestionsAPoser));
+        Log.i("question selelectionnee", questionRetournee.getQuestion());
+        return questionRetournee;
     }
 
 
@@ -250,9 +262,9 @@ public class anglais extends AppCompatActivity {
             public void onClick(View v) {
                 reponse();
                 if (reponse1.getText().toString().equals(tampon)) {// mettre l'id de la reponse juste
-
                     reponse1.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
                 } else {
                     reponse1.setBackgroundResource(R.color.rouge);
                     bonnereponse(tampon);
@@ -281,6 +293,7 @@ public class anglais extends AppCompatActivity {
                 if (reponse2.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse2.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
                 } else {
                     reponse2.setBackgroundResource(R.color.rouge);
                     bonnereponse(tampon);
@@ -308,6 +321,7 @@ public class anglais extends AppCompatActivity {
                 if (reponse3.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse3.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
 
                 } else {
                     reponse3.setBackgroundResource(R.color.rouge);
@@ -337,6 +351,7 @@ public class anglais extends AppCompatActivity {
                 if (reponse4.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse4.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
 
                 } else {
                     reponse4.setBackgroundResource(R.color.rouge);

@@ -29,13 +29,12 @@ public class francais extends AppCompatActivity {
     Button reponse1, reponse2, reponse3, reponse4, questionsuivante;
     int nbrecord = 0;
     int nbscore = 0;
-    int taillebdd = 5; // à changer pour la taille de la bdd
+    int taillebdd = 10; // nombre de question par partie
     private ArrayList<Integer> indicesDesQuestionsAPoser = new ArrayList<Integer>();
     private ArrayList<Integer> indicesDesReponsesAAfficher = new ArrayList<Integer>();
     SQLiteDatabase maBaseang;
     ArrayList<Question> tableauDeTouteslesQuestions;
     Random rand = new Random();
-    int nombrequestion = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +67,13 @@ public class francais extends AppCompatActivity {
 
 
         // on remplit le tableau des indices des questions à poser pour les 10 questions de la partie
-        remplirTableauDeValeurs(indicesDesQuestionsAPoser, 5);
+        remplirTableauDeValeurs(indicesDesQuestionsAPoser, taillebdd);
 
 
         try {
             maBaseang = openOrCreateDatabase("maBaseDeDonneesQuestion", MODE_PRIVATE, null);
             // on cree la table question si elle n'existait pas
-            maBaseang.execSQL("CREATE TABLE IF NOT EXISTS questionA(" +
+            maBaseang.execSQL("CREATE TABLE IF NOT EXISTS questionF(" +
                     " id INTEGER PRIMARY KEY," +
                     " question text NOT NULL," +
                     " reponse1 text NOT NULL," +
@@ -83,14 +82,24 @@ public class francais extends AppCompatActivity {
                     " reponse4 text);"
             );
             // on la vide (sinon on recréerait a chaque fois les questions a chaque nouveau lancement)
-            maBaseang.execSQL(" delete from questionA where 1;");
+            maBaseang.execSQL(" delete from questionF where 1;");
             // on la remplit de quelques elements  la table question
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (1,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (2,'What is the word for : fleur ?', 'Flower', 'Bathroom','Towel','Tree');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (3,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (4,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-            maBaseang.execSQL("insert into questionA (id,question, reponse1, reponse2, reponse3, reponse4) values (5,'What is the opposite of easy ? ', 'Difficult', 'Different', 'Dumb', 'Crazy');");
-
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (1,' Quel mot est MAL orthographié ? ', 'Cauchemard', 'Nénuphar' ,'Ovipare','Plupart');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (2,' Quel mot est MAL orthographié ?', 'Connection', 'Déduction' ,'Détection','Bijection');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (3,'Je l a vois en ____ et en os.', 'chair', 'chère' ,'chaire','cher');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (4,' Quel mot est BIEN orthographié ?', 'Occurrence', 'Carrence' ,'Méfience','Abscence');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (5,' Quel mot est BIEN orthographié ?', 'Incohérent', 'Incensé' ,'Ilogique','Apsurde');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (6,' Je manges des fruits trois fois par jours, Combien y a-t-il d erreurs ? ', '2', '1' ,'3','aucune');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (7,' You ______ do it if you don t want to.', 'do not have to', 'must not' ,'can not','could not');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (8,'What is the opposite of : cold ? ', 'hot', 'calor' ,'warning','cool');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (9,' Where _______ that hat ?', 'did you get', 'did you got' ,'does you get','have you get');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (10,'What is the opposite for up ? ', 'down', 'pu','left', 'toward');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (11,' ______ car is yours?', 'Which', 'Whose' ,'Who','Where');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (12,'What the translation for Rouge', 'red', 'reed' ,'Green','raid');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (13,' My baby sister _______ yesterday . ', 'was born ', 'borned' ,'is born','will born');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (14,'What is the word for : Monkey ?', 'Singe', 'Clef' ,'Appartement','Elephant');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (15,' I enjoy ______ beer. ', 'drinking', 'drinked' ,'drink','to drink');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (16,' What is the word for : Fly ?' ,'Voler', 'Manger' ,'Oublier','Croiser');");
 
             Log.i("BDD", "Opération réussi");
 
@@ -102,7 +111,7 @@ public class francais extends AppCompatActivity {
         try {
             String tampon = "bonne réponse";
             // on execute la requete SQL et on récupère les résultats dans un Cursor c
-            Cursor c = maBaseang.rawQuery("Select * from questionA order by id asc;", null);
+            Cursor c = maBaseang.rawQuery("Select * from questionF order by id asc;", null);
             // BD: il faut selectionenr tous les champs, j'ai donc remplacé par *
             // on ajoute chaque ligne du cursor dans le tableau results
             while (c.moveToNext()) {
@@ -128,7 +137,7 @@ public class francais extends AppCompatActivity {
                 startTimer();
                 // On récupère une question alétoire, puis on l'affiche
                 Question questionTireeAuSort = obtenirQuestionAleatoire();
-                afficherQuestion(questionTireeAuSort);
+                afficherQuestionF(questionTireeAuSort);
             }
         });
         questionsuivante.setOnClickListener(new View.OnClickListener() {
@@ -137,20 +146,13 @@ public class francais extends AppCompatActivity {
                 if (indicesDesQuestionsAPoser.size() > 0) { // il reste des questions
                     Log.i("questions", "il reste " + indicesDesQuestionsAPoser.size() + " dans la base");
                     Question questionTireeAuSort = obtenirQuestionAleatoire();
-                    afficherQuestion(questionTireeAuSort);
+                    afficherQuestionF(questionTireeAuSort);
                     tempsrestant = 10000;
                     updateTimer();
                     startTimer();
                     questionsuivante.setVisibility(View.INVISIBLE);
                 }
-                if (indicesDesQuestionsAPoser.size() == 1){
-                    questionsuivante.setText("Voir les résultats");
-                    Question questionTireeAuSort = obtenirQuestionAleatoire();
-                    afficherQuestion(questionTireeAuSort);
-                    tempsrestant = 10000;
-                    updateTimer();
-                    startTimer();
-                    questionsuivante.setVisibility(View.INVISIBLE);}
+
                 else {
                     afficherScore();
                     pageaccueil.setVisibility(View.VISIBLE);
@@ -173,9 +175,9 @@ public class francais extends AppCompatActivity {
      * elle est à appeler a chaque fois que l'on veut afficher une nouvelle questions
      * */
     Question obtenirQuestionAleatoire ( ) {
-        Question questionRetournée =  tableauDeTouteslesQuestions.get(valeurAuPifDuTableau(indicesDesQuestionsAPoser));
-        Log.i("question selelectionnee", questionRetournée.getQuestion());
-        return questionRetournée;
+        Question questionRetournee =  tableauDeTouteslesQuestions.get(valeurAuPifDuTableau(indicesDesQuestionsAPoser));
+        Log.i("question selelectionnee", questionRetournee.getQuestion());
+        return questionRetournee;
     }
 
 
@@ -232,7 +234,7 @@ public class francais extends AppCompatActivity {
         timer.setText(tempsRestant);
     }
 
-    void afficherQuestion(final Question result) {
+    void afficherQuestionF(final Question result) {
         // affiche les questions tour à tour
         commencer.setVisibility(View.INVISIBLE);
         titreFr.setVisibility(View.INVISIBLE);
@@ -250,9 +252,9 @@ public class francais extends AppCompatActivity {
             public void onClick(View v) {
                 reponse();
                 if (reponse1.getText().toString().equals(tampon)) {// mettre l'id de la reponse juste
-
                     reponse1.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
                 } else {
                     reponse1.setBackgroundResource(R.color.rouge);
                     bonnereponse(tampon);
@@ -281,6 +283,7 @@ public class francais extends AppCompatActivity {
                 if (reponse2.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse2.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
                 } else {
                     reponse2.setBackgroundResource(R.color.rouge);
                     bonnereponse(tampon);
@@ -308,6 +311,7 @@ public class francais extends AppCompatActivity {
                 if (reponse3.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse3.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
 
                 } else {
                     reponse3.setBackgroundResource(R.color.rouge);
@@ -337,6 +341,7 @@ public class francais extends AppCompatActivity {
                 if (reponse4.getText().toString().equals(tampon)) { // mettre l'id de la reponse juste
                     reponse4.setBackgroundResource(R.color.vert);
                     setScore();
+                    setRecord();
 
                 } else {
                     reponse4.setBackgroundResource(R.color.rouge);
@@ -528,4 +533,4 @@ public class francais extends AppCompatActivity {
         reponse4.setVisibility(View.INVISIBLE);
         question.setVisibility(View.INVISIBLE);
     }
-}}
+}
