@@ -370,7 +370,7 @@ public class francais extends AppCompatActivity {
     public void setRecord() {
         // vérifie si le record est battu et le change si oui
         SharedPreferences sp = getSharedPreferences("your_prefs", anglais.MODE_PRIVATE);
-        nbrecord = sp.getInt("nbrecord", -1);
+        nbrecord = sp.getInt("nbrecord", 0);
         if (nbscore > nbrecord) {
             nbrecord = nbscore;
             SharedPreferences.Editor editor = sp.edit();

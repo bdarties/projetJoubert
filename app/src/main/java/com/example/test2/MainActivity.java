@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setRecord() {
         SharedPreferences sp = getSharedPreferences("your_prefs", anglais.MODE_PRIVATE);
-        nbrecord = sp.getInt("nbrecord", -1);
+        nbrecord = sp.getInt("nbrecord", 0);
         record.setText("Votre record actuel est : " + nbrecord);
     }
 
