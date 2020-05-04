@@ -491,13 +491,13 @@ public class anglais extends AppCompatActivity {
     }
 
     void bonnereponse(final String tampon) {
-        if (reponse1.toString().equals(tampon)) {
+        if (reponse1.getText().toString().equals(tampon)) {
             reponse1.setBackgroundResource(R.color.vert);
-        } else if (reponse2.toString().equals(tampon)) {
+        } else if (reponse2.getText().toString().equals(tampon)) {
             reponse2.setBackgroundResource(R.color.vert);
-        } else if (reponse3.toString().equals(tampon)) {
+        } else if (reponse3.getText().toString().equals(tampon)) {
             reponse3.setBackgroundResource(R.color.vert);
-        } else if (reponse4.toString().equals(tampon)) {
+        } else if (reponse4.getText().toString().equals(tampon)) {
             reponse4.setBackgroundResource(R.color.vert);
         }
     }
