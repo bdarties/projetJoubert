@@ -161,6 +161,9 @@ public class anglais extends AppCompatActivity {
                     updateTimer();
                     startTimer();
                     questionsuivante.setVisibility(View.INVISIBLE);
+                    if (indicesDesQuestionsAPoser.size() == 1) {
+                        questionsuivante.setText("Voir les résultats");
+                    }
                 }
 
                 else {

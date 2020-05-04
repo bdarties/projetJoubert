@@ -151,8 +151,10 @@ public class francais extends AppCompatActivity {
                     updateTimer();
                     startTimer();
                     questionsuivante.setVisibility(View.INVISIBLE);
+                    if (indicesDesQuestionsAPoser.size() == 1) {
+                        questionsuivante.setText("Voir les résultats");
+                    }
                 }
-
                 else {
                     afficherScore();
                     pageaccueil.setVisibility(View.VISIBLE);
