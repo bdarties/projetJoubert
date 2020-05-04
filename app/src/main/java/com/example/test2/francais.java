@@ -90,16 +90,16 @@ public class francais extends AppCompatActivity {
             maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (4,' Quel mot est BIEN orthographié ?', 'Occurrence', 'Carrence' ,'Méfience','Abscence');");
             maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (5,' Quel mot est BIEN orthographié ?', 'Incohérent', 'Incensé' ,'Ilogique','Apsurde');");
             maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (6,' Je manges des fruits trois fois par jours, Combien y a-t-il d erreurs ? ', '2', '1' ,'3','aucune');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (7,' You ______ do it if you don t want to.', 'do not have to', 'must not' ,'can not','could not');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (8,'What is the opposite of : cold ? ', 'hot', 'calor' ,'warning','cool');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (9,' Where _______ that hat ?', 'did you get', 'did you got' ,'does you get','have you get');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (10,'What is the opposite for up ? ', 'down', 'pu','left', 'toward');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (11,' ______ car is yours?', 'Which', 'Whose' ,'Who','Where');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (12,'What the translation for Rouge', 'red', 'reed' ,'Green','raid');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (13,' My baby sister _______ yesterday . ', 'was born ', 'borned' ,'is born','will born');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (14,'What is the word for : Monkey ?', 'Singe', 'Clef' ,'Appartement','Elephant');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (15,' I enjoy ______ beer. ', 'drinking', 'drinked' ,'drink','to drink');");
-            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (16,' What is the word for : Fly ?' ,'Voler', 'Manger' ,'Oublier','Croiser');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (7,'Quelle est la bonne orthographie ? ', ' Syntaxe', 'Sinthèse' ,'Synthaxe','Sinthaxe');");            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (8,'What is the opposite of : cold ? ', 'hot', 'calor' ,'warning','cool');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (8,'Quel est la bonne orthographe ? ', 'développement', 'dévellopement' ,'dévelopement','dévelopement');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (9,' Parmi les termes suivants, lequel est féminin ?', 'Equivoque', 'Entête' ,'Emblème','Entracte');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (10,' Quelle est la bonne forme ?', ' Au temps pour moi ! ', ' Autant pour moi !' ,' Eau tant pour moi ! ',' D’autant pour moi ! ');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (11,' Quelle est la première personne du singulier de l’indicatif du verbe « appeler » ?', 'J’appelle', 'J’apel' ,'J’apele','J’appel');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (12,' Que signifie l’adjectif volubile ?', 'Qui parle beaucoup', 'Qui parle peu' ,'Qui est agressif' ,'Qui est gros et gras');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (13,' Parmi les termes suivants, lequel est masculin ? ', 'Opuscule', 'Omoplate' ,'Orbite' ,'Octave');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (14,'Quel est la bonne orthographe ?', 'd’ores et déjà', 'd’ore et déjà' ,'doré déjà','d’or et déjà');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (15,'Quelle proposition est fausse ?', ' quatre-vingts mille cinq cent ', 'deux mille dix-neuf' ,'dix-huit mille cent quatre-vingt-quinze',' cinq cent huit ');");
+            maBaseang.execSQL("insert into questionF (id,question, reponse1, reponse2, reponse3, reponse4) values (16,'J’irai où tu___ ', 'iras ', 'ira' ,'voudra','seras');");
 
             Log.i("BDD", "Opération réussi");
 
